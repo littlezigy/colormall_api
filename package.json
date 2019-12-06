@@ -1,0 +1,12 @@
+{
+  "name": "ecommerce-api",
+  "version": "1.0.0",
+  "description": "An ecommerce project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./bin/www.js"
+  },
+  "author": "Adesuwa T. Dawodu",
+  "license": "ISC"
+}
