@@ -1,8 +1,9 @@
 const app = require('../app');
-const http = require('https');
+const http = require('http');
 
 const port = process.env.PORT || 3001;
 app.set("port", port);
 
-let server = http.createServer(app);
-server.listen(port);
+let httpserver = http.createServer(app);
+httpserver.listen(port);
+httpserver.timeout = 500000;

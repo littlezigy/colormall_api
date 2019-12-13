@@ -8,5 +8,16 @@
     "dev": "nodemon ./bin/www.js"
   },
   "author": "Adesuwa T. Dawodu",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-node": "^0.1.0",
+    "cloudinary": "^1.17.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "helmet": "^3.21.2",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.14.0"
+  }
 }
