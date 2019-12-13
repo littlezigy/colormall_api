@@ -1,0 +1,5 @@
+image: ubuntu:18.04
+
+build:
+  script:
+    - git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
