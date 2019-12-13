@@ -4,7 +4,7 @@ module.exports = {
         port: '5432',
         user: 'adesuwa',
         database: 'ecommerce_single',
-        connectionString: process.env.CONNECTION_STRING
+        connectionString: process.env.DATABASE_URL
     },
     cors: {
         whitelist: ['http://localhost:8081']
