@@ -8,7 +8,6 @@ module.exports = (req, res, next) => {
             this.isOperational = true;
         //}
     }
-    console.log("error helper");
     next();
 
     //throw new AppError(errorManagement.commonErrors.InvalidInput, 'Describe here what happened', true);

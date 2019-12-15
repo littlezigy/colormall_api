@@ -1,52 +1,39 @@
-const { describe } = require('mocha');
-const chai = require('chai');
-const { expect } = require('chai');
-const chaiHttp = require('chai-http');
-chai.use(chaiHttp);
+const request = require('supertest');
+const auth = require("../middlewares/auth");
+let server;// = require("../bin/www");
 const sinon = require('sinon');
 
-const auth = require("../middlewares/auth");
-let sandbox = sinon.createSandbox();
-//const loggedinStub = sandbox.stub(auth, 'loggedin');
-
-
 describe('Hitting User routes', function() {
-    console.log("First");
-    before(function(done) {
-        console.log("before each");
-        sandbox.stub(auth, 'loggedin').callsFake((req, res, next) => {
+
+    beforeAll(() => {
+        const loggedinStub = sinon.stub(auth, 'loggedin');
+        loggedinStub.callsFake((req, res, next) => {
             console.log("***************\nFake auth\n************************\nREQSESSION===>", req.session);
             req.session.passport = {user: 6};
             console.log("new req session", req.session);
             return next();
         });
-        done();
+        console.log("Mocking");
     });
 
-    /*afterEach(function(done) {
-        sandbox.restore();
-        done();
-    });*/
-    after(function(done) {
-        sandbox.restore();
-        done();
+    it("Return products user might be interested in based on past usage", async function(){
+        server = require("../bin/www");
+        let response = await request(server)
+                             .get('/api/v1/user/personalize')
+
+        console.log("wtf");
+        expect(response.body).toHaveProperty('success');
+        expect(response.status).toEqual(200);
+        expect(response.body.data).toHaveProperty('best');
+        console.log(response.status, "\n***************************\nRES\n***************************\n", response.body);
     });
 
-    //describe("Returns specially picked products to user", function() {
-        it("Return products user might be interested in based on past usage", function(done) {
-            console.log("frack");
-            let server2 = require('../bin/www');
-            chai.request(server2)
-            .get('/api/v1/user/personalize')
-            .end(function(err, res) {
-                console.log("wtf");
-                expect(res.body).to.have.property('success');
-                expect(res.status).to.be.equal(200);
 
-                if(err) return done(err);
-                console.log(res.status, "\n***************************\nRES\n***************************\n", res.body);
-                done();
-            });
-        });
-    //})
+    afterAll(() => {
+        sinon.restore();
+    });
+});
+
+afterAll(()=> {
+    server.close();
 });

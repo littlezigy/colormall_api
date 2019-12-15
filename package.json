@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./bin/www.js",
-    "tests": "NODE_ENV=tests && nodemon --exec 'mocha --exit'",
+    "tests": "NODE_ENV=test && nodemon --exec 'jest --runInBand --verbose'",
+    "test:watch": "NODE_ENV=test && nodemon --exec 'jest --watch --runInBand --verbose'",
     "test": "npm run tests",
     "dev": "nodemon ./bin/www.js"
   },
@@ -29,6 +30,11 @@
     "chai-http": "^4.3.0",
     "jest": "^24.9.0",
     "mocha": "^6.2.2",
-    "sinon": "^7.5.0"
+    "sinon": "^7.5.0",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": ["/node_modules/"]
   }
 }
