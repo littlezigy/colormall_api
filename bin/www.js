@@ -7,3 +7,5 @@ app.set("port", port);
 let httpserver = http.createServer(app);
 httpserver.listen(port);
 httpserver.timeout = 500000;
+
+module.exports = httpserver;

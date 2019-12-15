@@ -11,10 +11,8 @@ module.exports = {
     },
     finduser: async(data) => {
         try {
-            //console.log("data", data)
-            let user = await db.findone('users', {'email = ': data.email});
+            let user = (data._id)? await db.findone('users', {'_id = ': data._id}) : await db.findone('users', {'email = ': data.email});
             if(user.rows.length<1) throw "User not found";
-            console.log("user data", user.rows);
             return user.rows[0];
         } catch(e) {
             console.log(e);

@@ -1,7 +1,5 @@
-console.log("blah");
 module.exports = {
     loggedin: (req, res, next) => {
-        console.log("session obj", req.session);
         try{
             if(req.session.passport.user) {
                 return next();

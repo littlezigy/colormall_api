@@ -1,7 +1,8 @@
 const express = require('express');
-const session = require('express-session');
 
 let app =  express();
+const session = require('express-session');
+const pgsessionstore = require('connect-pg-simple')(session);
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const cors = require('cors');
@@ -9,13 +10,27 @@ const helmet = require('helmet');
 const db = require("./bin/database");
 const routes = require("./config/routes");
 require("./config/passport")(passport);
+const appconfig = require('./config');
+const uuidv1 = require('uuid/v1');
+
+
+const sessionConfig = {
+    store: new pgsessionstore({
+        conString: appconfig.database.connectionString,
+        tableName: 'session'
+    }),
+    name: 'SID',
+    secret: uuidv1(),
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        sameSite: true
+    }
+}
 
 app.set('trust proxy', 1);
-app.use(session({
-    secret: 'old cat',
-    cookie: {
-    }
-}));
+app.use(session(sessionConfig));
 app.use(helmet());
 app.use(cors());
 app.use(express.json());

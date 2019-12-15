@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./bin/www.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./bin/www.js"
+    "tests": "nodemon --exec 'mocha --grep --exit'",
+    "test": "npm run tests",
+    "dev": "mocha --exit && nodemon ./bin/www.js"
   },
   "author": "Adesuwa T. Dawodu",
   "license": "ISC",
@@ -20,6 +21,12 @@
     "helmet": "^3.21.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "pg": "^7.14.0"
+    "pg": "^7.14.0",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.2"
   }
 }

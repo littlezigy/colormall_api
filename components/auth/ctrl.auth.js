@@ -12,10 +12,11 @@ module.exports = {
     },
     login: async(req, res) => {
         console.log("Login");
-        console.log("req orbject", req.user, req.session);
         return res.success(true, {id: req.user._id, firstname: req.user.firstname, confirmed: req.user.confirmed});
     },
     logout: async(req, res) => {
+        console.log(req.logout());
+        return res.success("done");
 
     },
     confirmaccount: async(req, res) => {

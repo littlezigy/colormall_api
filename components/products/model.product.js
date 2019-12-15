@@ -47,7 +47,6 @@ module.exports = {
                                 `);
                 for(i = 0; i< categories.rows.length; i++) {
                     let category_products = await client.query(`SELECT * FROM categories_products where _id = ${categories.rows[i]._id} limit 5`);
-                    console.log("\n\n***************CATEGORY PRODUCTS*********************\n");
 
                     function pushToArray(arr, obj) {
                         const index = arr.findIndex((e) => e.productid === obj.productid);
@@ -65,7 +64,6 @@ module.exports = {
                 }
                 return {rows: products.rows.sort(comparethumbs)};
             });
-            console.log("RESULTS", results);
             results = results.data;
         } else {
             results = await db.list('categories_products');
