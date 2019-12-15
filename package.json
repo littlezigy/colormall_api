@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./bin/www.js",
-    "tests": "nodemon --exec 'mocha --grep --exit'",
+    "tests": "NODE_ENV=tests && nodemon --exec 'mocha --exit'",
     "test": "npm run tests",
-    "dev": "mocha --exit && nodemon ./bin/www.js"
+    "dev": "nodemon ./bin/www.js"
   },
   "author": "Adesuwa T. Dawodu",
   "license": "ISC",
@@ -27,6 +27,8 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "mocha": "^6.2.2"
+    "jest": "^24.9.0",
+    "mocha": "^6.2.2",
+    "sinon": "^7.5.0"
   }
 }

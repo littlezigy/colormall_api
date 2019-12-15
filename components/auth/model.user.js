@@ -12,11 +12,11 @@ module.exports = {
     finduser: async(data) => {
         try {
             let user = (data._id)? await db.findone('users', {'_id = ': data._id}) : await db.findone('users', {'email = ': data.email});
-            if(user.rows.length<1) throw "User not found";
+            console.log("Users ", user.rows[0]);
+            //if(user.rows.length<1) throw AppError("User not found");
             return user.rows[0];
         } catch(e) {
-            console.log(e);
-            return e;
+            throw e;
         }
     }
 }

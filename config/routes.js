@@ -8,6 +8,11 @@ const passport = require("passport");
 const user = require("../components/auth/ctrl.user");
 
 router.use(responses);
+router.use(function(req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    next();
+});
+
 router.route('/products')
 .post(products.create)
 .get(products.list);
@@ -15,7 +20,18 @@ router.route('/products')
 router.route("/auth/signup")
 .post(auth.signup);
 
-router.post('/auth/login', passport.authenticate('local'), auth.login);
+router.post('/auth/login', function(req, res, next) {
+                                passport.authenticate('local', (err, user, info) => {
+                                    if(user) {
+                                        req.logIn(user, function(err) {next(err)});
+                                    }
+                                    if(info) {
+                                        console.log("Auth error", info);
+                                        return res.gerror(info, 401);
+                                    }
+                                    if(err) return next(err);
+                                })(req, res, next);
+                            }, auth.login);
 
 router.route('/auth/logout')
 .get(auth.logout);

@@ -13,6 +13,8 @@ require("./config/passport")(passport);
 const appconfig = require('./config');
 const uuidv1 = require('uuid/v1');
 
+const errorhelper = require("./middlewares/errorhelper");
+
 
 const sessionConfig = {
     store: new pgsessionstore({
@@ -35,6 +37,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(errorhelper);
 app.use(passport.initialize());
 app.use(passport.session());
 

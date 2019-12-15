@@ -3,15 +3,13 @@ const productmodel =require("../products/model.product");
 
 module.exports = {
     personalization: async(req, res) => {
+        console.log("personalizing products for user");
             //get user last view products
-            console.log("Getting recently viewed items");
             //get related products
-            console.log("Getting related products");
             //get top items from favorite category
-            console.log("Fetching products from favorite category");
-            console.log("SESSION OBJECT", req.session);
             let best = await productmodel.viewCategories('userbest', {user_id: req.session.passport.user});
             
+            console.log("gotten best for", req.session);
             return res.success("done", {best});
     }
 }
