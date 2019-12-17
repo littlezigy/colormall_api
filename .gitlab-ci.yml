@@ -1,5 +1,6 @@
-image: ubuntu:18.04
+image: node:9
 
-build:
+tests: 
   script:
-    - git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
+  - npm install
+  - npm run tests
