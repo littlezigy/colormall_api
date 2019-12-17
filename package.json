@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./bin/www.js",
-    "tests": "NODE_ENV=test && nodemon --exec 'jest --runInBand --verbose'",
-    "test:watch": "NODE_ENV=test && nodemon --exec 'jest --watch --runInBand --verbose'",
+    "tests": "NODE_ENV=test && node --exec 'jest --runInBand --verbose'",
+    "test:watch": "NODE_ENV=test && node --exec 'jest --watch --runInBand --verbose'",
     "test": "npm run tests",
-    "dev": "nodemon ./bin/www.js"
+    "dev": "nodemon ./bin/www.js",
+	"test:dev": "NODE_ENV=test && node --exec 'jest --runInBand --verbose'"
+
   },
   "author": "Adesuwa T. Dawodu",
   "license": "ISC",
