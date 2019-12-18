@@ -41,3 +41,11 @@ router.route('/auth/confirmaccount')
 
 router.get('/user/personalize', authmiddleware.loggedin, user.personalization);
 module.exports = router;
+
+
+//PRODUCTS
+router.use('/products', authmiddleware.loggedin)
+.post(products.create)
+.get(products.readDetailed)
+//.patch(products.edit)
+.delete(products.delete)

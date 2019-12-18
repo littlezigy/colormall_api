@@ -12,12 +12,19 @@ module.exports = {
             }
             products = await model.paginate(data);
         } else products = await model.list();
-        //console.log(products);
+        console.log(products);
         return res.send(products);
+    },
+    read: async(req, res) => {
+
+    },
+    readDetailed: async(req, res)=> {
+
     },
     create: async(req, res) => {
         let data = req.body.product;
         let products = await model.create(data);
+        console.log("data", data);
         return res.send(products.rows);
     },
     update: async(req, res) => {
