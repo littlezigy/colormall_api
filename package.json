@@ -5,12 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./bin/www.js",
-    "tests": "NODE_ENV=test && jest --runInBand --verbose",
+    "tests": "NODE_ENV=test && jest --runInBand --verbose --coverage",
     "test:watch": "NODE_ENV=test && jest --watch --runInBand --verbose",
     "test": "npm run tests",
     "dev": "nodemon ./bin/www.js",
-	"test:dev": "NODE_ENV=test && node --exec 'jest --runInBand --verbose'"
-
+    "dev:test": "NODE_ENV=test && nodemon --exec 'jest --runInBand --verbose'"
   },
   "author": "Adesuwa T. Dawodu",
   "license": "ISC",
@@ -21,6 +20,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "faker": "^4.1.0",
     "helmet": "^3.21.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
@@ -37,6 +37,8 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "coveragePathIgnorePatterns": ["/node_modules/"]
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }

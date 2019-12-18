@@ -1,5 +1,5 @@
 const sinon = require('sinon');
-const server = require("../bin/www");
+const server = require("../../bin/www");
 
 
 describe("These tests require a valid user session created with passport object.", function() {
@@ -8,8 +8,8 @@ describe("These tests require a valid user session created with passport object.
         .get('/api/v1/auth/logout')
         .set('Cookie', cookies)
         console.log("Logout cookies", cookies);
-        console.log(res.body);
-        res.body.should.have.property('success');
+        console.log(response.body);
+        response.body.should.have.property('success');
     });
 });
 

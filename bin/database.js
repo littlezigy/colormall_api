@@ -90,12 +90,9 @@ module.exports = {
             if(i == values.length) values_str+= `$${i}`;
             else values_str += `$${i}, `;
           }
-          console.log("cols", cols, "values", values);
     
           let querytext = `INSERT INTO ${table} (${cols}) VALUES(${values_str}) RETURNING *;`;
-          console.log(querytext);
           let res = await pool.query(querytext, values);
-          console.log("Res", res);
           return res;
         } catch(err) {
           console.log('ERROR', err);

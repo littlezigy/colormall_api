@@ -1,13 +1,16 @@
+const usermodel = require("./model.user");
+
 module.exports = {
     signup: async(req, res) => {
+        console.log("signup");
         try {
-            let user = await usermodel.create(req.body.user);
-            req.login(user);
-            return res.send("Account created. Please sign in");
+            let user = await usermodel.create(req.body);
+            console.log("User created.", user);
+            return res.success("Account created. Please sign in");
             
         } catch(e) {
             console.log(e);
-            return res.send("Error!");
+            return res.gerror("Error!");
         }
     },
     login: async(req, res) => {
@@ -21,6 +24,6 @@ module.exports = {
     },
     confirmaccount: async(req, res) => {
         console.log(req.query);
-        res.send("done");
+        res.success("done");
     }
 }
