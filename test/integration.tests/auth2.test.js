@@ -1,7 +1,9 @@
-const sinon = require('sinon');
 const server = require("../../bin/www");
 
 
+afterAll(()=> {
+    server.close();
+});
 describe("These tests require a valid user session created with passport object.", function() {
     test.skip("Logout user. Will delete session cookies and make sure it can't be used to login again.", async function() {
         let response =  await request(server)

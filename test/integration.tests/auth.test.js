@@ -1,10 +1,13 @@
 const passport =require('passport');
-//const passportstub = sinon.stub(passport);
 
 let server = require('../../bin/www');
 const request = require('supertest');
 const faker = require('faker');
 
+
+afterAll(()=>{
+    server.close();
+});
 
 describe("Authentication Service", function() {
     describe("Create local account with email and password", function(){
@@ -14,10 +17,6 @@ describe("Authentication Service", function() {
 			const response = await request(server)
 				.post('/api/v1/auth/signup')
                 .send({email, password});
-                
-            console.log("response text", response.text);
-			console.log("response", response.body);
-            console.log("response headers,", response.headers, "\nresponse status:",  response.status);
             expect(response.statusCode).toEqual(200);
 		});
     });
@@ -36,7 +35,6 @@ describe("Authentication Service", function() {
     
     describe("Hit a guarded user route with no session id cookie set", function() {
         test("Hits route user/personalize and data is not returned plus error status is sent", async function() {
-            console.log("Illegal user operation");
             let res = await request(server)
                     .get('/api/v1/user/personalize');
 
@@ -62,10 +60,4 @@ describe("Authentication Service", function() {
             expect(res.status).toEqual(401);
         });
     });
-});
-
-
-
-afterAll(()=>{
-    server.close();
 });

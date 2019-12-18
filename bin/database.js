@@ -81,7 +81,6 @@ module.exports = {
     },
 
     create: async(table, columns, values) => {
-        console.log("Running create");
         try{
           let cols = columns.join(', ');
     
@@ -114,7 +113,6 @@ module.exports = {
     },
 
     update: async(table, columns, values, conditions) => {
-        console.log("Running update");
         try{
             let querytext = `UPDATE ${table} SET`
     

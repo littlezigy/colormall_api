@@ -12,12 +12,10 @@ module.exports = (passport) => {
             try{
                 let user = await usermodel.finduser({email: username});
                 if(!user) {
-                    console.log("No user");
                     return done(null, false, {message: "No account with that email exists"});
                 }
                 let result = bcrypt.compareSync(password, user.password);
                 if(result !== true) return done(null, false, {message: 'Wrong username or password'});
-                console.log("Found user");
                 return done(null, user);
             } catch(e) {
                 console.log("\n\nERROR PASSPORT\n", {message: e});
@@ -27,16 +25,12 @@ module.exports = (passport) => {
     ));
 
     passport.serializeUser(function(user, done) {
-        console.log("serlializng user");
-        //console.log("serialize user"); console.log("userid", user._id);
         done(null, user._id);
     });
 
     passport.deserializeUser(async function(id, done) {
-        console.log("deserializing user");
         try {
             let user = await usermodel.finduser({_id: id});
-            console.log("user for deserialize", user);
             done(null, user);
         } catch(e) {
             console.log("big bad error", e);
