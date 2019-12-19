@@ -7,15 +7,12 @@ const authmiddleware = require("../middlewares/auth");
 const passport = require("passport");
 const user = require("../components/auth/ctrl.user");
 
+
 router.use(responses);
 router.use(function(req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     next();
 });
-
-router.route('/products')
-.post(products.create)
-.get(products.list);
 
 router.route("/auth/signup")
 .post(auth.signup);
@@ -40,12 +37,14 @@ router.route('/auth/confirmaccount')
 .get(auth.confirmaccount);
 
 router.get('/user/personalize', authmiddleware.loggedin, user.personalization);
-module.exports = router;
 
 
 //PRODUCTS
 router.use('/products', authmiddleware.loggedin)
-.post(products.create)
+.post( products.create)
 .get(products.readDetailed)
 //.patch(products.edit)
 .delete(products.delete)
+
+
+module.exports = router;

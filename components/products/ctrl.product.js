@@ -22,10 +22,9 @@ module.exports = {
 
     },
     create: async(req, res) => {
-        let data = req.body.product;
-        let products = await model.create(data);
-        console.log("data", data);
-        return res.send(products.rows);
+        let product = await model.create(req.body);
+        console.log("New product", product);
+        return res.send(product);
     },
     update: async(req, res) => {
         let data = req.body.product;

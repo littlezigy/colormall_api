@@ -13,10 +13,9 @@ module.exports = {
         return products.rows;
     },
     create: async (data) => {
-        let columns = Object.keys(data);
-        let values = Object.values(data);
-        console.log("Runnign create");
-        return db.create('products', columns, values);
+        //Price is stored in kobo to avoid rounding problems with floating or currency types
+        return (await db.create('products', ['name_', 'price', 'brand', 'instock', 'shortdesc_'], 
+                    [data.name.substring(0, 20), parseInt(data.price*100), data.brand.substring(0, 20), data.instock, data.shortdesc_])).rows;
     },
     update: async(data, productid) => {
         let columns = Object.keys(data);
@@ -28,7 +27,6 @@ module.exports = {
     createCategory: async(data) => {
         let columns = Object.keys(data);
         let values = Object.values(data);
-        console.log("Runnign create");
         return db.create('products', columns, values);
     },
     viewCategories: async(filter, data = null) => {

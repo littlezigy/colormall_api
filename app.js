@@ -15,7 +15,6 @@ const uuidv1 = require('uuid/v1');
 
 const errorhelper = require("./middlewares/errorhelper");
 
-
 const sessionConfig = {
     store: new pgsessionstore({
         conString: appconfig.database.connectionString,
@@ -46,4 +45,4 @@ db.initializeDatabase();
 
 app.use('/api/v1', routes);
 
-module.exports = app;
+module.exports = { app, session: sessionConfig.store}

@@ -4,12 +4,12 @@
   "description": "An ecommerce project",
   "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www.js",
-    "tests": "NODE_ENV=test && jest --runInBand --verbose --coverage",
-    "test:watch": "NODE_ENV=test && jest --watch --runInBand --verbose",
+    "start": "NODE_ENV=production & node ./bin/www.js",
+    "tests": "NODE_ENV=test & jest --runInBand --verbose --forceExit --coverage --detectOpenHandles",
+    "test:watch": "NODE_ENV=test & jest --watch --runInBand --verbose --forceExit --detectOpenHandles",
     "test": "npm run tests",
-    "dev": ". ./.env.sh && nodemon ./bin/www.js",
-    "dev:test": "./.env.sh NODE_ENV=test && nodemon --exec 'jest --runInBand --verbose'"
+    "dev": ". ./.env.sh & NODE_ENV=development && nodemon ./bin/www.js",
+    "dev:test": "./.env.sh &&  nodemon --exec 'NODE_ENV=devtest jest --runInBand --verbose --detectOpenHandles'"
   },
   "author": "Adesuwa T. Dawodu",
   "license": "ISC",

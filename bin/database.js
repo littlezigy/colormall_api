@@ -13,6 +13,9 @@ module.exports = {
     initializeDatabase: () => {
         pool = new Pool(db);
     },
+    close: () => {
+        return pool.end();
+    },
 
     /**
      * @params conditions - {condition1: 'boo', condition2: 'ans', intcondition: [">", 1]}

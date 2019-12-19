@@ -4,8 +4,8 @@ let server = require('../../bin/www');
 const request = require('supertest');
 const faker = require('faker');
 
-
 afterAll(()=>{
+    console.log("ENDING TEST SUITE");
     server.close();
 });
 
@@ -17,7 +17,7 @@ describe("Authentication Service", function() {
 			const response = await request(server)
 				.post('/api/v1/auth/signup')
                 .send({email, password});
-            expect(response.statusCode).toEqual(200);
+            expect(response.statusCode).toEqual(200); 
 		});
     });
 
@@ -59,5 +59,10 @@ describe("Authentication Service", function() {
 
             expect(res.status).toEqual(401);
         });
+    });
+    describe("Account issh", function() {
+        test.todo("Account Confirmation");
+        test.todo("Change email");
+        test.todo("Change password");
     });
 });

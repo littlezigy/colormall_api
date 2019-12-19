@@ -2,8 +2,10 @@ config = {}
 
 const cloudinary = require('cloudinary');
 
-if(process.env.NODE_ENV = 'development') config = require("./env/development");
-else if(process.env.NODE_ENV = 'production') config = require("./env/production");
+if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'devtest') {
+    config = require("./env/development");
+}
+else if(process.env.NODE_ENV === 'production') config = require("./env/production");
 else config = "No environment specified";
 
 cloudinary.config({

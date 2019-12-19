@@ -12,8 +12,8 @@ describe("Makes sure that model.user is working properly", function() {
         const hashpwd = jest.spyOn(bcrypt, 'hashSync');
 
         const createfn = await usermodel.create({email: faker.internet.email(), password: faker.internet.password()});
+        console.log("\n**********************\nCREATE FN\n**************\n", createfn);
         expect(hashpwd).toHaveBeenCalledTimes(1);
         expect(db.create).toHaveBeenCalledTimes(1);
-        console.log("\n**********************\nCREATE FN\n**************\n", createfn);
     });
 });
