@@ -12,11 +12,9 @@ afterAll(()=>{
 describe("Authentication Service", function() {
     describe("Create local account with email and password", function(){
         test("When valid email and password is sent, a 200 response is sent", async function() {
-			let email = faker.internet.email();
-			let password = faker.internet.password();
 			const response = await request(server)
 				.post('/api/v1/auth/signup')
-                .send({email, password});
+                .send({email: faker.internet.email(), password: faker.internet.password()});
             expect(response.statusCode).toEqual(200); 
 		});
     });
