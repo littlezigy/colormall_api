@@ -1,6 +1,11 @@
 const db = require("../../bin/database");
-
+//IMPORTANT: Price is stored in kobo. Make sure to multiply by 100.
 module.exports = {
+    create: async (data) => {
+        //Price is stored in kobo to avoid rounding problems with floating or currency types
+        return (await db.create('products', ['name_', 'price', 'brand', 'instock', 'shortdesc_', 'store_id'], 
+                    [data.name.substring(0, 20), parseInt(data.price*100), data.brand.substring(0, 20), data.instock, data.shortdesc_, data.store_id])).rows;
+    },
     list: async () => {
         let products = await db.list('products', {"isactive =": true});
         return products.rows;
@@ -11,11 +16,6 @@ module.exports = {
     paginate: async(data) => {
         let products = await db.paginate('products', data, {"isactive = ": true});
         return products.rows;
-    },
-    create: async (data) => {
-        //Price is stored in kobo to avoid rounding problems with floating or currency types
-        return (await db.create('products', ['name_', 'price', 'brand', 'instock', 'shortdesc_'], 
-                    [data.name.substring(0, 20), parseInt(data.price*100), data.brand.substring(0, 20), data.instock, data.shortdesc_])).rows;
     },
     update: async(data, productid) => {
         let columns = Object.keys(data);
