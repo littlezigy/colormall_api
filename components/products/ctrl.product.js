@@ -1,5 +1,5 @@
 const model = require("./model.product");
-const findExistingStore = require("./services/findExistingStore");
+const findExistingStore = require("./services/findorCreateExistingStore");
 const users = require("../auth/model.user");
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
         if(req.query) {
             //console.log(req.query);
             let data = req.query;
-            if(req.query.sort == 'bestof') {
+            if(req.query.sort === 'bestof') {
                 data.sortby = "thumbs";
                 data.sorttype = 'desc';
             }
@@ -34,8 +34,11 @@ module.exports = {
     readDetailed: async(req, res)=> {
 
     },
-    update: async(req, res) => {
-        let data = req.body.product;
+    update: async(req, res) => {//res body: {store: id, product: {name, price, ...}}
+        let productdata = req.body.product;
+        //User can only edit product if product belongs to one of user's stores.
+        //Check if product belongs to one of users' stores.
+
     },
     delete: async(req, res)=> {
 
