@@ -1,39 +1,44 @@
-const request = require("supertest");
-let auth = require("../../middlewares/auth");
-
-const loggedinguard = jest.spyOn(auth, 'loggedin'); //spying on login guard
-
-let server = require('../../bin/www');
-/*
+const productctrl = require("../../components/products/ctrl.product");
+const faker = require('faker');
 jest.isolateModules(()=> {
     server = require('../../bin/www');
-    auth = require("../../middlewares/auth");
-});*/
-
-const faker = require('faker');
-
-afterAll(async()=> {
-    await server.close();
+    passport = require('passport');
 });
 
-describe('Products service', function() {
-    describe("Create a product", function() {
-        test('when not logged in', async function() {
+const mockRes = () => {
+    const res = {};
+    res.status = jest.fn().mockReturnValue(res);
+    res.json = jest.fn().mockReturnValue(res);
+    res.gerror = jest.fn().mockReturnValue(res);
+    res.success = jest.fn().mockReturnValue(res);
+    return res;
+}
 
-            let newproduct = await request(server)
-                .post("/api/v1/products")
-                .send({name: faker.commerce.productName(), 
-                        price: faker.commerce.price(),
-                        instock: Math.floor(Math.random() * 201),
-                        brand: faker.company.companyName(),
-                        isactive: true,
-                        shortdesc_: faker.lorem.words(7)
-                    });
+describe("Products Service", function() {
+    describe("Creates products", function() {
+        it("With valid fields and adds to user's store", async function(){
+            const res = mockRes();
 
-            console.log(newproduct.body);
-            expect(loggedinguard).toHaveBeenCalledTimes(1);
-            expect(newproduct.statusCode).toEqual(401);
-            server.close();
+            let req = {
+                body: {
+                    name: faker.commerce.productName(), 
+                    price: faker.commerce.price(),
+                    instock: Math.floor(Math.random() * 201),
+                    brand: faker.company.companyName(),
+                    shortdesc_: faker.lorem.words(7)
+                }, session: {passport: {user: 6}}
+            };
+
+            await productctrl.create(req, res);
+
+            expect(res.success).toHaveBeenCalledTimes(1);
+        });
+    });
+    describe('Retrieving personalized view of products for user that exists in system', function() {
+        afterEach((done)=> {
+            jest.clearAllMocks();
+            jest.resetModules();
+            done()
         });
     });
 });
