@@ -15,6 +15,7 @@ const uuidv1 = require('uuid/v1');
 
 const errorhelper = require("./middlewares/errorhelper");
 
+console.log('NODE ENV',process.env.NODE_ENV);
 const sessionConfig = {
     store: new pgsessionstore({
         conString: appconfig.database.connectionString,
