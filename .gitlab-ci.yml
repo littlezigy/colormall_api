@@ -3,5 +3,4 @@ image: node:9
 tests: 
   script:
   - npm install
-  - npm run tests -- --coverage
-  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  - npm run tests 
