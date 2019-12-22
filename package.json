@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production & node ./bin/www.js",
-    "tests": ". ./.env.sh &&  NODE_ENV=test jest --runInBand --detectOpenHandles",
+    "tests": "NODE_ENV=test jest --runInBand --detectOpenHandles",
     "test:watch": "NODE_ENV=test & jest --watch --runInBand --verbose --forceExit --detectOpenHandles",
     "test": "npm run tests",
-    "dev": ". ./.env.sh & NODE_ENV=development && nodemon --exec 'NODE_ENV=devtest jest --runInBand --detectOpenHandles --silent' &&  nodemon ./bin/www.js",
+    "dev": ". ./.env.sh & nodemon --exec 'NODE_ENV=devtest jest --runInBand --detectOpenHandles --silent' &&  nodemon ./bin/www.js",
     "dev:test": ". ./.env.sh &&  nodemon --exec 'NODE_ENV=devtest jest ./test/unit.tests ./test/integration.tests --runInBand --detectOpenHandles'"
   },
   "author": "Adesuwa T. Dawodu",
