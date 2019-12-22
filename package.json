@@ -5,15 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production & node ./bin/www.js",
-    "tests": "NODE_ENV=test & jest --runInBand --verbose --forceExit --coverage --detectOpenHandles",
+    "tests": "./.env.sh &&  NODE_ENV=devtest jest --runInBand --detectOpenHandles",
     "test:watch": "NODE_ENV=test & jest --watch --runInBand --verbose --forceExit --detectOpenHandles",
     "test": "npm run tests",
-    "dev": ". ./.env.sh & NODE_ENV=development && nodemon ./bin/www.js",
-    "dev:test": "./.env.sh &&  nodemon --exec 'NODE_ENV=devtest jest --runInBand --verbose --detectOpenHandles'"
+    "dev": ". ./.env.sh & NODE_ENV=development && nodemon --exec 'NODE_ENV=devtest jest --runInBand --detectOpenHandles --silent' &&  nodemon ./bin/www.js",
+    "dev:test": "./.env.sh &&  nodemon --exec 'NODE_ENV=devtest jest ./test/unit.tests ./test/integration.tests --runInBand --detectOpenHandles'"
   },
   "author": "Adesuwa T. Dawodu",
   "license": "ISC",
   "dependencies": {
+    "@littlezigy/zipobject": "^1.0.1",
     "bcrypt-node": "^0.1.0",
     "cloudinary": "^1.17.0",
     "connect-pg-simple": "^6.0.1",

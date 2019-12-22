@@ -1,28 +1,54 @@
 const db = require("../../bin/database");
+//TABLES
+const tb_products_write = 'products';
+const tb_products_readonly = 'products_v';
 //IMPORTANT: Price is stored in kobo. Make sure to multiply by 100.
 module.exports = {
     create: async (data) => {
-        //Price is stored in kobo to avoid rounding problems with floating or currency types
-        return (await db.create('products', ['name_', 'price', 'brand', 'instock', 'shortdesc_', 'store_id'], 
-                    [data.name.substring(0, 20), parseInt(data.price*100), data.brand.substring(0, 20), data.instock, data.shortdesc_, data.store_id])).rows;
+        if(!data.name && !data.name_)  throw new Error("Product name not given");
+        if(!data.store_id) throw new Error("Store not specified");
+
+        const columns = [
+            data.store_id && 'store_id',
+            (data.name || data.name_) && 'name_',
+            data.price && 'price', data.brand && 'brand', 
+            data.instock && 'instock', data.shortdesc_ && 'shortdesc_', 
+            (typeof data.isactive === 'boolean') && 'isactive'
+        ].filter(Boolean);
+
+        let values = [
+            data.store_id && data.store_id,
+            (data.name && data.name.substring(0, 50)) || (data.name_ && data.name_), data.price && parseInt(data.price * 100),
+            data.brand && data.brand.substring(0, 50), data.instock && data.instock, 
+            data.shortdesc_ && data.shortdesc_
+        ].filter(Boolean);
+
+        if (typeof data.isactive === 'boolean') values.push(data.isactive);
+
+        return (await db.create(tb_products_write, columns, values)).rows;
     },
     list: async () => {
-        let products = await db.list('products', {"isactive =": true});
+        let products = await db.list(tb_products_readonly);
         return products.rows;
     },
     /**
      * @params data - is an object. {page, limit, sortby, sorttype (asc, desc)}
      */
     paginate: async(data) => {
-        let products = await db.paginate('products', data, {"isactive = ": true});
+        let products = await db.paginate(tb_products_readonly, data);
         return products.rows;
     },
-    update: async(data, productid) => {
-        let columns = Object.keys(data);
-        let values = Object.values(data);
-
+    update: async(data) => {
         console.log("Running update");
-        return db.update('products', columns, values, {"_id = ": productid});
+        const columns = [data.name && 'name', data.price && 'price', data.brand && 'brand', data.instock && 'instock', data.shortdesc_ && 'shortdesc_', (typeof data.isactive === 'boolean') && 'isactive'].filter(Boolean);
+
+        let values = [
+            data.name && data.name.substring(0, 50), data.price && parseInt(data.price * 100),
+            data.brand && data.brand.substring(0, 50), data.instock && data.instock, 
+            data.shortdesc_ && data.shortdesc_
+        ].filter(Boolean);
+        if (typeof data.isactive === 'boolean') values.push(data.isactive);
+        return db.update(tb_products_write, columns, values, {"_id = ": data.productid, "store_id =": data.store_id});
     },
     createCategory: async(data) => {
         let columns = Object.keys(data);
@@ -66,7 +92,6 @@ module.exports = {
         } else {
             results = await db.list('categories_products');
         }
-
         
         return results.rows;
     }

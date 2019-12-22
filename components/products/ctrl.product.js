@@ -1,17 +1,17 @@
-const model = require("./model.product");
+const Product = require("./model.product");
 const findExistingStore = require("./services/findorCreateExistingStore");
-const users = require("../auth/model.user");
+const User = require("../auth/model.user");
 
 module.exports = {
     create: async(req, res) => {
         //Find user's store
         let store;
         if(!req.body.storeid) {
-            const user = await users.finduser({'_id': req.session.passport.user});
+            const user = await User.finduser({'_id': req.session.passport.user});
             store = await findExistingStore(user);
         } else store = req.body.storeid;
         
-        let product = await model.create({store_id: store._id, ...req.body});
+        let product = await Product.create({store_id: store._id, ...req.body});
         return res.success(product);
     },
     list: async(req, res) => {
@@ -23,13 +23,13 @@ module.exports = {
                 data.sortby = "thumbs";
                 data.sorttype = 'desc';
             }
-            products = await model.paginate(data);
-        } else products = await model.list();
+            products = await Product.paginate(data);
+        } else products = await Product.list();
         console.log(products);
         return res.success(products);
     },
     read: async(req, res) => {
-
+        
     },
     readDetailed: async(req, res)=> {
 
@@ -39,6 +39,7 @@ module.exports = {
         //User can only edit product if product belongs to one of user's stores.
         //Check if product belongs to one of users' stores.
 
+        //let updatedproduct = await Product.update
     },
     delete: async(req, res)=> {
 

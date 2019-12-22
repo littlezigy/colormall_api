@@ -1,0 +1,13 @@
+DROP TABLE products CASCADE;
+
+DROP TABLE users CASCADE;
+
+DROP TABLE cart CASCADE;
+
+DROP TABLE categories CASCADE;
+
+DROP TABLE product_categories CASCADE;
+
+DROP TABLE stores CASCADE;
+
+DROP TABLE thumbs CASCADE;

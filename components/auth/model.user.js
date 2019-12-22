@@ -5,7 +5,7 @@ const config = require("../../config/index");
 module.exports = {
     create: async (data) => {
         let password = bcrypt.hashSync(data.password);
-        return (await db.create('users', ['firstname', 'lastname', 'email', 'password'], [data.firstname, data.lastname, data.email, password])).rows;
+        return (await db.create('users', ['displayname', 'firstname', 'lastname', 'email', 'password'], [data.displayname, data.firstname, data.lastname, data.email, password])).rows;
     },
     finduser: async(data) => {
         try {
@@ -14,5 +14,12 @@ module.exports = {
         } catch(e) {
             throw e;
         }
+    },
+    /**
+     * For admin users or diagnostics purposes only
+     */
+    findRandomUser: async(conditions=null) => {
+        console.log("CONDITIONS", conditions);
+        return (await db.findonerandom('users', conditions)).rows[0];
     }
 }

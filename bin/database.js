@@ -31,11 +31,12 @@ module.exports = {
                 params[i] = conditions[key];
                 if(i>0) querytext += " AND ";
                 i++;
-                
-                querytext += `${key} $${i}`;
+                if(!conditions[key] || conditions[key] === null) querytext += key;
+                else querytext += `${key} $${i}`;
             }
         }
-        return await pool.query(`${querytext};`, params);
+        if (Array.isArray(params) && params !== null) params = params.filter(x=> (x !== null) && (x!== undefined));
+        return (Array.isArray(params) && params.length > 0) ? await pool.query(`${querytext} LIMIT 1;`, params) : await pool.query(`${querytext} LIMIT 1;`);
     },
 
     /**
@@ -66,9 +67,11 @@ module.exports = {
     },
 
     findone: async(table, conditions = null) => {
+        console.log('\nTABLENAME\n---------------\n',table);
         let params = null;
         let querytext = `SELECT * FROM ${table}`;
         if(conditions) {
+            console.log("CONDITIONS THAT WARRANTED THIS", conditions);
             params = [];
             querytext += ` WHERE `;
             let i = 0;
@@ -76,11 +79,40 @@ module.exports = {
                 params[i] = conditions[key];
                 if(i>0) querytext += " AND ";
                 i++;
-                
-                querytext += `${key} $${i}`;
+                if(!conditions[key] || conditions[key] === null) querytext += key;
+                else querytext += `${key} $${i}`;
             }
         }
-        return await pool.query(`${querytext} LIMIT 1;`, params);
+        if (Array.isArray(params) && params !== null) params = params.filter(x=> (x !== null) && (x!== undefined));
+        return (Array.isArray(params) && params.length > 0) ? await pool.query(`${querytext} LIMIT 1;`, params) : await pool.query(`${querytext} LIMIT 1;`);
+    },
+
+    findonerandom: async(table, conditions = null) => {
+        console.log('\nTABLENAME\n---------------\n',table);
+        let params = null;
+        let querytext = `SELECT * FROM ${table}`;
+        if(conditions) {
+            console.log("CONDITIONS THAT WARRANTED THIS", conditions);
+            params = [];
+            querytext += ` WHERE `;
+            let i = 0;
+            for (key in conditions) {
+                params[i] = conditions[key];
+                if(i>0) querytext += " AND ";
+                i++;
+                if(!conditions[key] || conditions[key] === null) querytext += key;
+                else querytext += `${key} $${i}`;
+            }
+        }
+        if (Array.isArray(params) && params !== null) params = params.filter(x=> (x !== null) && (x!== undefined));
+        console.log("QUERY TEXT\n-----------------\n", `${querytext} LIMIT 1;`);
+        if(Array.isArray(params) && params.length > 0) {
+            console.log("santa claus is here");
+            return await pool.query(`${querytext} ORDER BY random() LIMIT 1;`, params);
+        } else {
+            console.log("His evil brother");
+            return  await pool.query(`${querytext} ORDER BY random() LIMIT 1;`);
+        }
     },
 
     create: async(table, columns, values) => {
@@ -92,7 +124,7 @@ module.exports = {
             if(i == values.length) values_str+= `$${i}`;
             else values_str += `$${i}, `;
           }
-    
+          
           let querytext = `INSERT INTO ${table} (${cols}) VALUES(${values_str}) RETURNING *;`;
           let res = await pool.query(querytext, values);
           return res;

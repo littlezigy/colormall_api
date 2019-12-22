@@ -16,4 +16,5 @@ describe("Makes sure that model.user is working properly", function() {
         expect(hashpwd).toHaveBeenCalledTimes(1);
         expect(db.create).toHaveBeenCalledTimes(1);
     });
+    test.todo("Find random user")
 });

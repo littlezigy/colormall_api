@@ -1,4 +1,5 @@
 const passport =require('passport');
+const uuid = require("uuid/v1");
 
 let server = require('../../bin/www');
 const request = require('supertest');
@@ -10,20 +11,42 @@ afterAll(()=>{
 });
 
 describe("Authentication Service", function() {
-    describe("Create local account with email and password", function(){
-        test("When valid email and password is sent, a 200 response is sent", async function() {
+    const email_ = `${parseInt(Math.random()*13000)}${faker.internet.email()}`;
+    const password_ = faker.internet.password();
+    describe("Local Signup", function(){
+        test("With email and password only", async function() {
+
 			const response = await request(server)
 				.post('/api/v1/auth/signup')
-                .send({email: faker.internet.email(), password: faker.internet.password()});
-            expect(response.statusCode).toEqual(200); 
+                .send({email: email_, password: password_});
+            
+                expect(response.statusCode).toEqual(200); 
+        });
+        test("With firstname and lastname", async function() {
+            const randomemail = `${parseInt(Math.random()*13000)}${faker.internet.email()}`;
+            const randompassword = faker.internet.password();
+			const response = await request(server)
+				.post('/api/v1/auth/signup')
+                .send({firstname: faker.name.firstName(), lastname: faker.name.lastName(), email: randomemail, password: randompassword});
+            
+                expect(response.statusCode).toEqual(200); 
+        });
+        test("Complete with display name as well", async function() {
+            const randomemail = `${parseInt(Math.random()*13000)}${faker.internet.email()}`;
+			const response = await request(server)
+				.post('/api/v1/auth/signup')
+                .send({firstname: faker.name.firstName(), lastname: faker.name.lastName(), displayname: faker.internet.userName(), email: randomemail, password: faker.internet.password()});
+            
+                expect(response.statusCode).toEqual(200); 
 		});
     });
+
 
     describe('Login with valid email and password', function() {
         test("Returns cookie with session id and 200 response", async function() {
             const res = await request(server)
                 .post('/api/v1/auth/login')
-                .send({email: 'shrekogre@swamp.com', password: 'shrek'});
+                .send({email: email_, password: password_});
 
             expect(res.statusCode).toEqual(200);
             expect(res.headers).toHaveProperty('set-cookie');
@@ -53,7 +76,7 @@ describe("Authentication Service", function() {
         test("Login with bad password", async function() {
             let res = await request(server)
             .post('/api/v1/auth/login')
-            .send({email: "shrekogre@swamp.com", password: "Not shrek"});
+            .send({email: email_, password: "Not shrek"});
 
             expect(res.status).toEqual(401);
         });
