@@ -1,4 +1,4 @@
-const stores = require("../model.store");
+const stores = require("../../stores/model.store");
 
 module.exports = async function(user) {
     //Find and return the first store belonging to user. If user has none, create one for them.
