@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">77.78% </span>
+        <span class="strong">56.25% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>14/18</span>
+        <span class='fraction'>9/16</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">58.33% </span>
+        <span class="strong">27.27% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>7/12</span>
+        <span class='fraction'>6/22</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/4</span>
+        <span class='fraction'>2/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">77.78% </span>
+        <span class="strong">56.25% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>14/18</span>
+        <span class='fraction'>9/16</span>
       </div>
     </div>
     <p class="quiet">
@@ -76,68 +76,65 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">module.exports = (req, res, next) =&gt; {
+&nbsp;
     /**
      * @params {string} gerror - Error message.
      */
     res.gerror = function() {
-        console.log("Error response helper");
-        let message = arguments[0];
+        let message = arguments[0] || <span class="branch-1 cbranch-no" title="branch not covered" >"Error";</span>
         let statusCode = arguments[1] || 400;
         data = arguments[2] || null;
 &nbsp;
-        console.log("Using spread\n", {message, statusCode, ...data});
-        console.log("Using amps and spread\n", {message, statusCode, ...data&amp;&amp;<span class="branch-1 cbranch-no" title="branch not covered" >{data}}</span>)
-&nbsp;
-        res.status(statusCode).send({error: "Error", ...data &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{data}}</span>);
+        res.status(statusCode).send({error: message, ...data &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{data}}</span>);
     }
+&nbsp;
     /**
-     * @params {Object} data - Send in anything. Json obj, array, string...anything
+     * @params {message} - Error message
      */
-    res.success = function(message, data=null) {
-        console.log("Success response");
-        res.send({success: message, data});
-    }
-    res.failure = <span class="fstat-no" title="function not covered" >(m</span>essage, data=<span class="branch-0 cbranch-no" title="branch not covered" >null)</span> =&gt; {
-  //      res.setHeader('Content-Type', 'application/json');
-<span class="cstat-no" title="statement not covered" >        console.log(res.statusCode);</span>
-<span class="cstat-no" title="statement not covered" >        if(res.statusCode !== 200) {</span>
-<span class="cstat-no" title="statement not covered" >            res.send()  </span>
-        } else <span class="cstat-no" title="statement not covered" >res.status(400).send({fail: message, data});</span>
+    res.success = <span class="fstat-no" title="function not covered" >fu</span>nction() {
+        let message = <span class="cstat-no" title="statement not covered" >arguments[0] || "Operation Successful";</span>
+        let data = <span class="cstat-no" title="statement not covered" >arguments[1] || null;</span>
+<span class="cstat-no" title="statement not covered" >            res.send({success: message, ...data &amp;&amp; {data}});</span>
     }
 &nbsp;
+    res.failure = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+        let message = <span class="cstat-no" title="statement not covered" >arguments[0] || "Operation Successful";</span>
+        let statusCode = <span class="cstat-no" title="statement not covered" >arguments[1] || 400;</span>
+        let data = <span class="cstat-no" title="statement not covered" >arguments[1] || null;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        res.status(statusCode).send({fail: message, ...data &amp;&amp; {data}});</span>
+    }
     next();
 }</pre></td></tr>
 </table></pre>
@@ -145,7 +142,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Dec 17 2019 13:20:33 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Dec 23 2019 09:58:43 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

@@ -24,7 +24,7 @@ describe("Products Service", function() {
             console.log("RANDOM USER", randomuser._id);
             console.log("*********************\nfound random user\n*****************", randomuser);
             const res = mockRes();
-            let req =   {
+            const req = {
                 body: {
                     name: faker.commerce.productName(), 
                     price: faker.commerce.price(),
@@ -34,6 +34,7 @@ describe("Products Service", function() {
                 },
                     session: {passport: {user: randomuser._id}}
             };
+            console.log("request obj", req);
 
             await productctrl.create(req, res);
 

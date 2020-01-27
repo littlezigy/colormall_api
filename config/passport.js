@@ -29,9 +29,10 @@ module.exports = (passport) => {
     });
 
     passport.deserializeUser(async function(id, done) {
+        console.log("DESERIALIZING USER");
         try {
-            let user = await usermodel.finduser({_id: id});
-            done(null, user);
+            const user = await usermodel.finduser({_id: id});
+                done(null, { _id: user._id, firstname: user.firstname, displayname: user.displayname, email: user.email, confirmed: user.confirmed});
         } catch(e) {
             console.log("big bad error", e);
             return done(null,false)

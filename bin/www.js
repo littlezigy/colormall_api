@@ -10,7 +10,7 @@ app.set("port", port);
 let httpserver = http.createServer(app);
 
 if(process.env.NODE_ENV !== 'test' && process.env.NODE_ENV!=='devtest') {
-    console.log("Will nwo listen on port");
+    console.log("Will now listen on port");
     
     httpserver.listen(port);
 

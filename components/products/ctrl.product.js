@@ -5,13 +5,15 @@ const User = require("../auth/model.user");
 module.exports = {
     create: async(req, res) => {
         //Find user's store
-        let store;
+        /*let store;
         if(!req.body.storeid) {
             const user = await User.finduser({'_id': req.session.passport.user});
             store = await findExistingStore(user);
         } else store = req.body.storeid;
-        
-        let product = await Product.create({store_id: store._id, ...req.body});
+        */
+       console.log("PASSING USER OBJ", req.session.passport);
+        let product = await Product.create({user_id: req.session.passport.user, ...req.body});
+        console.log("\n------------------\nPRODUCT\n-----------------\n", product);
         return res.success(product);
     },
     list: async(req, res) => {
@@ -25,7 +27,7 @@ module.exports = {
             }
             products = await Product.paginate(data);
         } else products = await Product.list();
-        console.log(products);
+        
         return res.success(products);
     },
     read: async(req, res) => {

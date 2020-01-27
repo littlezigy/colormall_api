@@ -2,19 +2,20 @@
   "name": "ecommerce-api",
   "version": "1.0.0",
   "description": "An ecommerce project",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "NODE_ENV=production & node ./bin/www.js",
-    "tests": "NODE_ENV=test jest --runInBand --detectOpenHandles",
+    "tests": "NODE_ENV=test jest --runInBand --detectOpenHandles --coverage",
     "test:watch": "NODE_ENV=test & jest --watch --runInBand --verbose --forceExit --detectOpenHandles",
     "test": "npm tests",
-    "dev": ". ./.env.sh & nodemon ./bin/www.js",
+    "dev": "NODE_ENV=development nodemon ./bin/www.js",
     "dev:test": ". ./.env.sh &&  nodemon --exec 'NODE_ENV=devtest jest ./test/unit.tests ./test/integration.tests --runInBand --detectOpenHandles'",
     "dev:alltests": ". ./.env.sh &&  nodemon --exec 'NODE_ENV=devtest jest --runInBand --detectOpenHandles'"
   },
   "author": "Adesuwa T. Dawodu",
   "license": "ISC",
   "dependencies": {
+    "@littlezigy/responsehelper": "^1.0.0",
     "@littlezigy/zipobject": "^1.0.1",
     "bcrypt-node": "^0.1.0",
     "cloudinary": "^1.17.0",
@@ -36,6 +37,9 @@
   },
   "jest": {
     "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules"
+    ],
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ],

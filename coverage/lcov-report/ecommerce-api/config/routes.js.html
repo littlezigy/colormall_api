@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">96.43% </span>
+        <span class="strong">87.5% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>27/28</span>
+        <span class='fraction'>28/32</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">83.33% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>5/6</span>
+        <span class='fraction'>3/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">75% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>4/4</span>
+        <span class='fraction'>3/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">90% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>26/26</span>
+        <span class='fraction'>27/30</span>
       </div>
     </div>
     <p class="quiet">
@@ -88,7 +88,18 @@
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
-<a name='L43'></a><a href='#L43'>43</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -97,14 +108,11 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -113,13 +121,13 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,6 +138,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span></td><td class="text"><pre class="prettyprint lang-js">const express = require('express');
 const router = express.Router();
 const products = require("../components/products/ctrl.product");
@@ -139,29 +161,26 @@ const authmiddleware = require("../middlewares/auth");
 const passport = require("passport");
 const user = require("../components/auth/ctrl.user");
 &nbsp;
+&nbsp;
 router.use(responses);
 router.use(function(req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     next();
 });
 &nbsp;
-router.route('/products')
-.post(products.create)
-.get(products.list);
-&nbsp;
 router.route("/auth/signup")
 .post(auth.signup);
 &nbsp;
 router.post('/auth/login', function(req, res, next) {
                                 passport.authenticate('local', (err, user, info) =&gt; {
-                                    if(user) {
-                                        req.logIn(user, function(err) {next(err)});
+                                    <span class="missing-if-branch" title="if path not taken" >I</span>if(user) {
+<span class="cstat-no" title="statement not covered" >                                        req.logIn(user, <span class="fstat-no" title="function not covered" >fu</span>nction(err) {<span class="cstat-no" title="statement not covered" >next(err)}</span>);</span>
                                     }
-                                    if(info) {
-                                        console.log("Auth error", info);
-                                        return res.gerror(info, 401);
+                                    <span class="missing-if-branch" title="if path not taken" >I</span>if(info) {
+<span class="cstat-no" title="statement not covered" >                                        console.log("Auth error", info);</span>
+<span class="cstat-no" title="statement not covered" >                                        return res.gerror(info, 401);</span>
                                     }
-                                    <span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return next(err);</span>
+                                    <span class="missing-if-branch" title="else path not taken" >E</span>if(err) return next(err);
                                 })(req, res, next);
                             }, auth.login);
 &nbsp;
@@ -172,13 +191,27 @@ router.route('/auth/confirmaccount')
 .get(auth.confirmaccount);
 &nbsp;
 router.get('/user/personalize', authmiddleware.loggedin, user.personalization);
+&nbsp;
+&nbsp;
+//PRODUCTS
+router.get('/products/:id/preview', products.readDetailed);
+router.get('/products/:id', authmiddleware.loggedin, products.readDetailed);
+&nbsp;
+router.get('/products', products.list);
+&nbsp;
+router.post('/products', authmiddleware.loggedin, products.create);
+router.patch('/products/:id', authmiddleware.loggedin, products.update);
+//.patch(products.edit)
+//.delete(products.delete);
+&nbsp;
+&nbsp;
 module.exports = router;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Dec 17 2019 13:20:33 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Dec 23 2019 09:58:43 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

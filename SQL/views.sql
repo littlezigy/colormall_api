@@ -1,5 +1,5 @@
 CREATE VIEW products_v AS 
-SELECT p._id, p.name_ AS productname, p.price, p.shortdesc_, p.brand, p.store_id, store.name_ AS storename, store.user_id AS storeowner, (p.thumbs + count(thumbs.user_id)) AS thumbs FROM products p
+SELECT p._id, p.name_ AS productname, p.price, p.shortdesc_, p.instock, p.brand, p.store_id, store.name_ AS storename, store.user_id AS storeowner, (p.thumbs + count(thumbs.user_id)) AS thumbs FROM products p
 LEFT JOIN thumbs ON (thumbs.product_id = p._id)
 LEFT JOIN stores store ON (store._id = p.store_id)
 WHERE p.isactive = true

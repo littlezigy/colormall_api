@@ -1,32 +1,63 @@
 const db = require("../../bin/database");
+const storemodel = require("../stores/model.store");
+const usermodel = require("../auth/model.user");
 //TABLES
 const tb_products_write = 'products';
 const tb_products_readonly = 'products_v';
 //IMPORTANT: Price is stored in kobo. Make sure to multiply by 100.
 module.exports = {
+    /**
+     * Function to create a new product.
+     * If a store is not specified, a new store will be created.
+     */
     create: async (data) => {
-        if(!data.name && !data.name_)  throw new Error("Product name not given");
-        if(!data.store_id) throw new Error("Store not specified");
+        const { user_id, name_, price, brand, instock, shortdesc_, isactive } = data;
 
+        console.log("USER ID", user_id);
+        console.log("NO STORE ID OR IS THERe????", data.store_id);
+        let store_id;
+        if(!data.store_id) {
+            const user = await usermodel.finduser({_id: user_id});
+            console.log("USER FOUND", user);
+            //Check if user has existing store.
+            const existingStore = await storemodel.findOne({user_id: user._id});
+            console.log("Exising store", existingStore);
+            if(existingStore) {
+                store_id = existingStore._id;
+            } else {
+                if(!user.firstname) throw new Error("Please complete your profile, or create a new store");
+                const storename = `${user.firstname}\'s Store!`
+                store_id = (await storemodel.create({user_id: user._id, name: storename}))._id;
+            }
+
+            console.log("FINDING STOREID\nOR\nFINDING NEMO\n", store_id);
+        } else store_id = data.store_id;
+
+        console.log("STOREID", store_id);
+        if(!data.name && !name_) throw new Error("Product name not given");
+        
         const columns = [
-            data.store_id && 'store_id',
-            (data.name || data.name_) && 'name_',
-            data.price && 'price', data.brand && 'brand', 
-            data.instock && 'instock', data.shortdesc_ && 'shortdesc_', 
-            (typeof data.isactive === 'boolean') && 'isactive'
+            store_id && 'store_id',
+            (data.name || name_) && 'name_',
+            price && 'price', brand && 'brand', 
+            instock && 'instock', shortdesc_ && 'shortdesc_', 
+            (typeof isactive === 'boolean') && 'isactive'
         ].filter(Boolean);
 
         let values = [
-            data.store_id && data.store_id,
-            (data.name && data.name.substring(0, 50)) || (data.name_ && data.name_), data.price && parseInt(data.price * 100),
-            data.brand && data.brand.substring(0, 50), data.instock && data.instock, 
-            data.shortdesc_ && data.shortdesc_
+            store_id && store_id,
+            (data.name && data.name.substring(0, 50)) || (name_ && name_), data.price && parseInt(data.price * 100),
+            brand && brand.substring(0, 50), instock && instock, 
+            shortdesc_ && shortdesc_
         ].filter(Boolean);
 
-        if (typeof data.isactive === 'boolean') values.push(data.isactive);
+        console.log("values", values);
 
-        return (await db.create(tb_products_write, columns, values)).rows;
+        if (typeof isactive === 'boolean') values.push(isactive);
+
+        return {...(await db.create(tb_products_write, columns, values)).rows};
     },
+
     list: async () => {
         let products = await db.list(tb_products_readonly);
         return products.rows;

@@ -24,7 +24,7 @@ describe("Create product", function() {
     let productname = faker.commerce.productName();
     let store_id = parseInt(Math.random()*150);
     test("With name and store_id only", async function() {
-        let create = await productmodel.create({name_: productname, 'store_id': store_id});
+        let create = await productmodel.create({name_: productname, 'store_id': store_id, user: {_id: 39}});
         console.log("Create function ", create, "create.name", create.name_);
         expect(create).toHaveProperty('name_', productname);
         expect(create).toHaveProperty('store_id', store_id);

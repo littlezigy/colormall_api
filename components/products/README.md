@@ -33,3 +33,5 @@
 }
 ```
 All parameters are optional but at least one must be specified.
+
+TODO: List products should paginate. In fact, all list functions should paginate.

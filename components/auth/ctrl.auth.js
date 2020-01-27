@@ -11,6 +11,7 @@ module.exports = {
         }
     },
     login: async(req, res) => {
+        console.log("LOGIN FUNCTION\n-------------------------------\n", req.user);
         return res.success(true, {id: req.user._id, firstname: req.user.firstname, confirmed: req.user.confirmed});
     },
     logout: async(req, res) => {
